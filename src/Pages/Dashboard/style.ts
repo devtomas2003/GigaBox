@@ -1,7 +1,18 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
+type propsSideMenu = {
+    isActive: boolean;
+}
 
+type propsTopMenu = {
+    isActive: boolean;
+};
+
+export const Container = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 `;
 
 export const HeaderBox = styled.div`
@@ -53,7 +64,8 @@ export const BoxMenuTp = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 15px;
+    padding: 13px;
+    background: ${(props: propsTopMenu) => props.isActive ? '#007DF0' : '#007DFF'};
     &:hover{
         background: #007DF0;
         cursor: pointer;
@@ -74,4 +86,39 @@ export const LftOpts = styled.div`
 export const RighOpts = styled.div`
     display: flex;
     flex-direction: row;
+`;
+
+export const ZoneBody = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+`;
+
+export const LftMenu = styled.div`
+    display: flex;
+    flex-direction: column;
+    background: #fcfcfc;
+    width: 15vw;
+    height: 100%;
+    padding: 5px;
+`;
+
+export const MenuOption = styled.div`
+    padding: 12px;
+    color: ${(props: propsSideMenu) => props.isActive ? '#007DFF' : '#aaa'};
+    user-select: none;
+    width: fit-content;
+    &:hover{
+        cursor: pointer;
+        color: ${(props: propsSideMenu) => props.isActive ? '#007DFF' : '#888'};
+    }
+`;
+
+export const TxtMenu = styled.p`
+    font-size: 18px;
+`;
+
+export const MainContent = styled.div`
+    padding: 15px;
+    width: 85vw;
 `;
