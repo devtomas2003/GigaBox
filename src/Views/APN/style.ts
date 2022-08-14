@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-type propsTexts = {
-    txtColor?: string;
-}
-
 type propsBtns = {
     isMain: boolean;
 };
@@ -41,7 +37,7 @@ export const InputLine = styled.div`
 export const TextLbl = styled.label`
     font-size: 17px;
     white-space: nowrap;
-    color: ${(props: propsTexts) => props.txtColor === undefined ? "#444" : props.txtColor};
+    color: #444;
     &:not(:first-child){
         margin-left: 3px;
     }

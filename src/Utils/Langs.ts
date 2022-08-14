@@ -19,7 +19,7 @@ export const IP = {
     "pt": {
         "configIP": "Configurar IP",
         "routerIP": "Endereço IP do GigaBox:",
-        "configDHCP": "Configur DHCP",
+        "configDHCP": "Configurar DHCP",
         "dhcpEnable": "Ativar DHCP:",
         "ipRange": "Intrevalo de IPs:",
         "submask": "Máscara de Rede:",
@@ -63,8 +63,8 @@ export const APN = {
         "dataVozTxt": "Dados + Voz",
         "userlbl": "Utilizador:",
         "passlbl": "Password:",
-        "serviceState": "Estado:",
-        "saveBtn": "Guardar"
+        "saveBtn": "Guardar",
+        "resetAPNs": "Têm a certeza que deseja repor os APNs?"
     },
     "en": {
         "configAPN": "Configure APN",
@@ -84,7 +84,45 @@ export const APN = {
         "dataVozTxt": "Data + Voice",
         "userlbl": "Username:",
         "passlbl": "Password:",
-        "serviceState": "Status:",
+        "saveBtn": "Save",
+        "resetAPNs": "Are you sure you want to reset APNs?"
+    }
+};
+
+export const Voice = {
+    "pt": {
+        "configVoice": "Configurar Voz",
+        "extTitle": "Extensão:",
+        "extState": "Estado do Proxy:",
+        "extStatus": "Estado do Registo:",
+        "ok": "OK",
+        "userTxt": "Utilizador VOIP Local:",
+        "passTxt": "Password VOIP Local:",
+        "stateAct": "Ativo"
+    },
+    "en": {
+        "configVoice": "Configure Voice",
+        "extTitle": "Extension:",
+        "extState": "Proxy Status:",
+        "extStatus": "Register State:",
+        "ok": "OK",
+        "userTxt": "Local VOIP Username:",
+        "passTxt": "Local VOIP Password:",
+        "stateAct": "Active"
+    }
+};
+
+export const Roaming = {
+    "pt": {
+        "configRoaming": "Configurar Roaming",
+        "allowData": "Ativar Dados em Roaming:",
+        "allowVoice": "Ativar Voz em Roaming:",
+        "saveBtn": "Guardar"
+    },
+    "en": {
+        "configRoaming": "Configure Roaming",
+        "allowData": "Enable Data Roaming:",
+        "allowVoice": "Enable Voice Roaming:",
         "saveBtn": "Save"
     }
 };
@@ -123,5 +161,16 @@ export type PropsLang = {
     dataVozTxt?: string;
     userlbl?: string;
     passlbl?: string;
-    serviceState?: string;
+    resetAPNs?: string;
+    configVoice?: string;
+    extTitle?: string;
+    extState?: string;
+    stateAct?: string;
+    extStatus?: string;
+    configRoaming?: string;
+    allowData?: string;
+    allowVoice?: string;
+    ok?: string;
+    userTxt?: string;
+    passTxt?: string;
 };

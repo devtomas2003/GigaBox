@@ -38,13 +38,15 @@ import { BsGearFill } from "react-icons/bs";
 import { FaTools } from "react-icons/fa";
 import IPDHCP from "../../Views/IPDHCP";
 import APN from "../../Views/APN";
+import Voice from "../../Views/Voice";
 import { PropsLang, Dashboard as Langs } from "../../Utils/Langs";
+import Roaming from "../../Views/Roaming";
 
 export default function Dashboard(){
     let { context } = useParams();
 
-    const [actualMenu, setActualMenu] = useState<number>(context === "apn" ? 2 : context === "ip" ? 3 : 0);
-    const [actualNav, setActualNav] = useState<number>(0);
+    const [actualMenu, setActualMenu] = useState<number>(context === "apn" || context === "voice" || context === "roaming" ? 2 : context === "ip" ? 3 : 0);
+    const [actualNav, setActualNav] = useState<number>(context === "apn" || context === "ip" ? 0 : context === "voice" ? 2 : context === "roaming" ? 1 : 0);
     const [showLangSlct, setShowLangSlct] = useState<boolean>(false);
     const [actualLang, setActualLang] = useState<string>('pt');
     const [lang, setLangs] = useState<PropsLang>();
@@ -160,6 +162,10 @@ export default function Dashboard(){
                     <IPDHCP lang={actualLang} />
                     : actualMenu === 2 && actualNav === 0 ?
                     <APN lang={actualLang} />
+                    : actualMenu === 2 && actualNav === 2 ?
+                    <Voice lang={actualLang} />
+                    : actualMenu === 2 && actualNav === 1 ?
+                    <Roaming lang={actualLang} />
                     : null }
                 </MainContent>
             </ZoneBody>

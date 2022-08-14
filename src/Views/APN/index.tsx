@@ -59,7 +59,7 @@ export default function APN(props: PropsAPN){
     });
 
     function resetAPNs(){
-        const reset = confirm("Têm a certeza que deseja repor os APNs?");
+        const reset = confirm(lang?.resetAPNs);
     }
 
     return (
@@ -150,10 +150,6 @@ export default function APN(props: PropsAPN){
                             <OptionInp>{lang?.voiceTxt}</OptionInp>
                             <OptionInp>{lang?.dataVozTxt}</OptionInp>
                         </SlctInpt>
-                    </InputLine>
-                    <InputLine>
-                        <TextLbl>{lang?.serviceState}</TextLbl>
-                        <TextLbl txtColor="#249e40">Conectado</TextLbl>
                     </InputLine>
                 </BoxForm>
             </ZoneView>
