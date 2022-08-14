@@ -47,6 +47,10 @@ export const LangSelector = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    user-select: none;
+    &:hover{
+        cursor: pointer;
+    }
 `;
 
 export const TxtActLang = styled.p`
@@ -122,3 +126,30 @@ export const MainContent = styled.div`
     padding: 15px;
     width: 85vw;
 `;
+
+export const LangBoxSlct = styled.div`
+    border-radius: 3px;
+    background: #fcfcfc;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    position: absolute;
+    margin-top: 45px;
+`;
+
+export const LangSlct = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 8px 100px 8px 8px;
+    user-select: none;
+    border-radius: 3px;
+    &:hover{
+        cursor: pointer;
+        background: #f0f0f0;
+    }
+`;
+
+export const LangSlcTxt = styled.p`
+    color: #444;
+    margin-left: 5px;
+`;
+
+export const LangFlag = styled.img``;

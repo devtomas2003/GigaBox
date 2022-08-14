@@ -14,30 +14,61 @@ import {
 } from "./style";
 
 import { FaRegSave } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import { PropsLang, IP as Langs } from "../../Utils/Langs";
 
-export default function IPDHCP(){
+type PropsIPDHCP = {
+    lang: string;
+};
+
+export default function IPDHCP(props: PropsIPDHCP){
+    
+    const [lang, setLangs] = useState<PropsLang>();
+
+    useEffect(() => {
+        function changeLang(){
+            if(props.lang === "pt"){
+                setLangs(Langs.pt);
+            }else{
+                setLangs(Langs.en);
+            }
+        }
+        changeLang();
+    }, [props.lang]);
+
+    const haveInitialize = useRef<boolean>(false);
+    useEffect(() => {
+        function initializeIPDHCP(){
+            window.history.replaceState(null, "GigaBox", "/ip")    
+        }
+        if(!haveInitialize.current){
+            initializeIPDHCP();
+            haveInitialize.current = true;
+        }
+    });
+
     return (
         <Container>
             <ZoneView>
-                <TitleZone>Configurar IP</TitleZone>
+                <TitleZone>{lang?.configIP}</TitleZone>
                 <Separator />
                 <BoxForm>
                     <InputLine>
-                        <TextLbl>Router IP Address:</TextLbl>
+                        <TextLbl>{lang?.routerIP}</TextLbl>
                         <InpDyn inpsize={150} type="text" autoComplete="on" autoCapitalize="off" />
                     </InputLine>
                 </BoxForm>
             </ZoneView>
             <ZoneView>
-                <TitleZone>Configurar DHCP</TitleZone>
+                <TitleZone>{lang?.configDHCP}</TitleZone>
                 <Separator />
                 <BoxForm>
                     <InputLine>
-                        <TextLbl>Enable Server:</TextLbl>
+                        <TextLbl>{lang?.dhcpEnable}</TextLbl>
                         <InpDynCk type="checkbox" />
                     </InputLine>
                     <InputLine>
-                        <TextLbl>IP Range: 192.168.</TextLbl>
+                        <TextLbl>{lang?.ipRange} 192.168.</TextLbl>
                         <InpDyn inpsize={50} type="text" autoComplete="on" autoCapitalize="off" />
                         <TextLbl>.</TextLbl>
                         <InpDyn inpsize={50} type="text" autoComplete="on" autoCapitalize="off" />
@@ -47,26 +78,26 @@ export default function IPDHCP(){
                         <InpDyn inpsize={50} type="text" autoComplete="on" autoCapitalize="off" />
                     </InputLine>
                     <InputLine>
-                        <TextLbl>Subnet Mask: 255.255.255.0</TextLbl>
+                        <TextLbl>{lang?.submask} 255.255.255.0</TextLbl>
                     </InputLine>
                     <InputLine>
-                        <TextLbl>DNS Primário:</TextLbl>
+                        <TextLbl>{lang?.mainDNS}</TextLbl>
                         <InpDyn type="text" autoComplete="on" autoCapitalize="off" />
                     </InputLine>
                     <InputLine>
-                        <TextLbl>DNS Secundário:</TextLbl>
+                        <TextLbl>{lang?.bckDNS}</TextLbl>
                         <InpDyn type="text" autoComplete="on" autoCapitalize="off" />
                     </InputLine>
                     <InputLine>
-                        <TextLbl>Lease Time:</TextLbl>
-                        <InpDyn type="text" autoComplete="on" autoCapitalize="off" placeholder="Minutes" />
+                        <TextLbl>{lang?.leaseTxt}</TextLbl>
+                        <InpDyn type="text" autoComplete="on" autoCapitalize="off" placeholder={lang?.mins} />
                     </InputLine>
                 </BoxForm>
             </ZoneView>
             <BoxBtns>
                 <BtnAct>
                     <FaRegSave size={20} color="#fff" />
-                    <BtnTxt>Guardar</BtnTxt>
+                    <BtnTxt>{lang?.saveBtn}</BtnTxt>
                 </BtnAct>
             </BoxBtns>
         </Container>

@@ -9,6 +9,7 @@ export default function Router(){
                 <Default />
                 <Routes>
                     <Route path="/" element={<Dashboard />} />
+                    <Route path="/:context" element={<Dashboard />} />
                 </Routes>
             </BrowserRouter>
         </>

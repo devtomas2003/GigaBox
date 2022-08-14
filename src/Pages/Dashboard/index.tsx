@@ -16,24 +16,50 @@ import {
     LftMenu,
     MenuOption,
     TxtMenu,
-    MainContent
+    MainContent,
+    LangBoxSlct,
+    LangSlct,
+    LangSlcTxt,
+    LangFlag
 } from "./style";
 
 import Logo from "../../resources/big.jpg";
+import Portugal from "../../resources/pt.png";
+import USA from "../../resources/usa.png";
+
+import { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 
 import { TbWorld } from "react-icons/tb";
-import { MdExitToApp, MdArrowDropDown, MdOutlineWifiTethering, MdOutlineSimCard } from "react-icons/md";
+import { MdExitToApp, MdArrowDropDown, MdOutlineWifiTethering, MdOutlineSimCard, MdArrowDropUp } from "react-icons/md";
 import { GiRotaryPhone } from "react-icons/gi";
 import { AiOutlineWifi, AiFillHome } from "react-icons/ai";
 import { BsGearFill } from "react-icons/bs";
 import { FaTools } from "react-icons/fa";
 import IPDHCP from "../../Views/IPDHCP";
-import { useState } from "react";
 import APN from "../../Views/APN";
+import { PropsLang, Dashboard as Langs } from "../../Utils/Langs";
 
 export default function Dashboard(){
-    const [actualMenu, setActualMenu] = useState<number>(0);
+    let { context } = useParams();
+
+    const [actualMenu, setActualMenu] = useState<number>(context === "apn" ? 2 : context === "ip" ? 3 : 0);
     const [actualNav, setActualNav] = useState<number>(0);
+    const [showLangSlct, setShowLangSlct] = useState<boolean>(false);
+    const [actualLang, setActualLang] = useState<string>('pt');
+    const [lang, setLangs] = useState<PropsLang>();
+
+    useEffect(() => {
+        function changeLang(){
+            if(actualLang === "pt"){
+                setLangs(Langs.pt);
+            }else{
+                setLangs(Langs.en);
+            }
+        }
+        changeLang();
+    }, [actualLang]);
+
     return (
         <Container>
             <HeaderBox>
@@ -41,10 +67,22 @@ export default function Dashboard(){
                     <ImgLogo src={Logo} title="STAR Labs" alt="Star Labs" />
                 </LeftLogo>
                 <InfoZone>
-                    <LangSelector>
-                        <TxtActLang>English</TxtActLang>
-                        <MdArrowDropDown size={40} color="#444" />
+                    <LangSelector onClick={() => { setShowLangSlct(!showLangSlct); }}>
+                        <TxtActLang>{ actualLang === "pt" ? "Português" : "English" }</TxtActLang>
+                        { showLangSlct ? <MdArrowDropUp size={40} color="#444" /> : <MdArrowDropDown size={40} color="#444" /> }
                     </LangSelector>
+                    { showLangSlct ?
+                    <LangBoxSlct onMouseLeave={() => setShowLangSlct(false)}>
+                        <LangSlct onClick={() => { setShowLangSlct(false); setActualLang('en'); }}>
+                            <LangFlag src={USA} title="English" alt="English"/>
+                            <LangSlcTxt>English</LangSlcTxt>
+                        </LangSlct>
+                        <LangSlct onClick={() => { setShowLangSlct(false); setActualLang('pt'); }}>
+                            <LangFlag src={Portugal} title="Português" alt="Português"/>
+                            <LangSlcTxt>Português</LangSlcTxt>
+                        </LangSlct>
+                    </LangBoxSlct>
+                    : null }
                     <BtnBox>
                         <AiOutlineWifi size={40} color="#28a745" />
                     </BtnBox>
@@ -63,25 +101,25 @@ export default function Dashboard(){
                 <LftOpts>
                     <BoxMenuTp onClick={() => {setActualMenu(0); setActualNav(0)}} isActive={actualMenu === 0 ? true : false}>
                         <AiFillHome size={30} color="#fff" />
-                        <TxtBtnMenuTop>Home</TxtBtnMenuTop>
+                        <TxtBtnMenuTop>{lang?.homeTitle}</TxtBtnMenuTop>
                     </BoxMenuTp>
                     <BoxMenuTp onClick={() => {setActualMenu(1); setActualNav(0)}} isActive={actualMenu === 1 ? true : false}>
                         <MdOutlineWifiTethering size={30} color="#fff" />
-                        <TxtBtnMenuTop>WiFi</TxtBtnMenuTop>
+                        <TxtBtnMenuTop>{lang?.wifiTitle}</TxtBtnMenuTop>
                     </BoxMenuTp>
                     <BoxMenuTp onClick={() => {setActualMenu(2); setActualNav(0)}} isActive={actualMenu === 2 ? true : false}>
                         <MdOutlineSimCard size={30} color="#fff" />
-                        <TxtBtnMenuTop>WAN</TxtBtnMenuTop>
+                        <TxtBtnMenuTop>{lang?.WanTitle}</TxtBtnMenuTop>
                     </BoxMenuTp>
                     <BoxMenuTp onClick={() => {setActualMenu(3); setActualNav(0)}} isActive={actualMenu === 3 ? true : false}>
                         <BsGearFill size={30} color="#fff" />
-                        <TxtBtnMenuTop>Avançado</TxtBtnMenuTop>
+                        <TxtBtnMenuTop>{lang?.AdvancedTitle}</TxtBtnMenuTop>
                     </BoxMenuTp>
                 </LftOpts>
                 <RighOpts>
                     <BoxMenuTp onClick={() => {setActualMenu(4); setActualNav(0)}} isActive={actualMenu === 4 ? true : false}>
                         <FaTools size={30} color="#fff" />
-                        <TxtBtnMenuTop>Avançado</TxtBtnMenuTop>
+                        <TxtBtnMenuTop>{lang?.toolsTitle}</TxtBtnMenuTop>
                     </BoxMenuTp>     
                 </RighOpts>
             </TopMenu>
@@ -119,9 +157,9 @@ export default function Dashboard(){
                 : null }
                 <MainContent>
                     { actualMenu === 3 && actualNav === 0 ?
-                    <IPDHCP />
+                    <IPDHCP lang={actualLang} />
                     : actualMenu === 2 && actualNav === 0 ?
-                    <APN />
+                    <APN lang={actualLang} />
                     : null }
                 </MainContent>
             </ZoneBody>

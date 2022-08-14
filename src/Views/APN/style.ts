@@ -4,6 +4,10 @@ type propsTexts = {
     txtColor?: string;
 }
 
+type propsBtns = {
+    isMain: boolean;
+};
+
 export const Container = styled.div``;
 
 export const ZoneView = styled.div``;
@@ -75,19 +79,58 @@ export const BoxBtns = styled.div`
 export const BtnAct = styled.div`
     display: flex;
     flex-direction: row;
-    background: #28a745;
+    background: ${(props: propsBtns) => props.isMain ? '#28a745' : '#eee'};
+    color: ${(props: propsBtns) => props.isMain ? '#fff' : '#444'};
     align-items: center;
     border-radius: 5px;
     user-select: none;
     padding: 10px;
     &:hover{
-        background: #249e40;
+        background: ${(props: propsBtns) => props.isMain ? '#249e40' : '#e5e5e5'};
         cursor: pointer;
+    }
+    &:not(:last-child){
+        margin-right: 10px;
     }
 `;
 
 export const BtnTxt = styled.p`
-    color: #fff;
-    margin-left: 5px;
+    margin-left: 8px;
     font-size: 17px;
+`;
+
+export const TableAPNs = styled.table`
+    width: 100%;
+    margin-top: 10px;
+`;
+
+export const TRAPN = styled.tr`
+    &:first-child{
+        background: #f0f0f0;
+    }
+    background: #fafafa;
+`;
+
+export const TDAPN = styled.td`
+    padding: 5px;
+    &:nth-child(1){
+        width: 15%;
+    }
+    &:nth-child(2){
+        width: 40%;
+    }
+`;
+
+export const BtnsBox = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+
+export const BtnActAPN = styled.div`
+    &:hover{
+        cursor: pointer;
+    }
+    &:not(:first-child){
+        margin-left: 5px;
+    }
 `;
